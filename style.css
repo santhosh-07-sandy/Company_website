@@ -170,7 +170,7 @@ ul {
 
 .nav-menu {
     display: flex;
-    gap: 30px;
+    gap: clamp(20px, 3vw, 30px);
     align-items: center;
 }
 
@@ -178,10 +178,53 @@ ul {
     font-size: 0.95rem;
     color: var(--text-main);
     font-weight: 500;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s ease-in-out;
 }
 
 .nav-link:hover {
     color: var(--primary);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+
+/* Special styling for the Contact Us button in Nav */
+.nav-link.btn-primary {
+    background-color: var(--primary);
+    color: var(--bg-dark);
+    border: 1px solid var(--primary);
+    padding: 10px 24px;
+    font-weight: 600;
+    border-radius: 30px;
+    /* Pill shape for modern look */
+    box-shadow: 0 4px 14px rgba(100, 255, 218, 0.4);
+    /* Glow effect */
+    transition: all 0.3s ease;
+}
+
+.nav-link.btn-primary:hover {
+    background-color: transparent;
+    color: var(--primary);
+    box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+    transform: translateY(-2px);
+}
+
+.nav-link.btn-primary::after {
+    display: none;
 }
 
 .nav-toggle {
@@ -693,8 +736,20 @@ ul {
 
     .nav-link {
         font-size: 1.5rem;
-        margin: 20px 0;
-        display: block;
+        margin: 15px 0;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    /* Adjust underline for mobile to be centered appropriately if needed, or keep standard */
+    .nav-link::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+        width: 50%;
+        /* Smaller underline on mobile for aesthetics */
     }
 
     .hero {
