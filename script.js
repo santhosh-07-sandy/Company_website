@@ -93,3 +93,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+// ===== Google Sheets Contact Form Submit =====
+const scriptURL = "https://script.google.com/macros/s/AKfycbz28QWz3vwXleMvQkbIuHinM9JN1i0PW1Tz9ZW3MtpZOyLUi1ytMbmE7htH6gSstsPgPg/exec";
+const form = document.forms["submit-to-google-sheet"];
+const msg = document.getElementById("msg");
+const submitButton = form?.querySelector("button[type='submit']");
+
+if (form && submitButton) {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        submitButton.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending...';
+        submitButton.classList.add('loading');
+        submitButton.disabled = true;
+        msg.className = ""; // Reset classes
+        msg.innerHTML = "";
+
+        fetch(scriptURL, {
+            method: "POST",
+            body: new FormData(form),
+        })
+            .then(() => {
+                // Success feedback handled by button only
+                submitButton.innerHTML = '<i class="fa-solid fa-check"></i> Sent!';
+                submitButton.classList.remove('loading');
+                submitButton.classList.add('success');
+
+                setTimeout(() => {
+                    submitButton.innerHTML = "Submit";
+                    submitButton.classList.remove('success');
+                    submitButton.disabled = false;
+                }, 5000);
+                form.reset();
+            })
+            .catch((error) => {
+                msg.className = "show error";
+                msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Error sending message. Please try again.';
+
+                submitButton.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Try Again';
+                submitButton.classList.remove('loading');
+                submitButton.classList.add('error');
+                submitButton.disabled = false;
+                console.error("Error!", error.message);
+
+                // Reset button state after error too after a delay
+                setTimeout(() => {
+                    submitButton.classList.remove('error');
+                    submitButton.innerHTML = "Submit";
+                }, 3000);
+            });
+    });
+}

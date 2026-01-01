@@ -390,17 +390,69 @@ ul {
     flex-wrap: wrap;
 }
 
+/* Hero Manifestation Quote */
+.manifestation-quote {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: rgba(100, 255, 218, 0.05);
+    /* Very subtle teal tint */
+    border-left: 3px solid var(--primary);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.manifestation-quote i {
+    color: var(--primary);
+    font-size: 1.2rem;
+    animation: pulseHeart 2s infinite;
+}
+
+.manifestation-quote span {
+    color: var(--text-heading);
+    font-weight: 500;
+    font-size: 1.05rem;
+    font-family: var(--font-heading);
+}
+
+@keyframes pulseHeart {
+    0% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.2);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.1);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
 .ecg-visual {
     width: 100%;
     height: clamp(250px, 40vw, 350px);
     background: #112240;
-    /* Always dark background */
+    /* Dark background */
     border-radius: 12px;
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Always light border */
 }
 
 .ecg-grid {
@@ -409,44 +461,81 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Always cyan grid */
+    /* Double Gradient for Major and Minor Grid Lines */
     background-image:
-        linear-gradient(rgba(100, 255, 218, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(100, 255, 218, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
+        linear-gradient(rgba(100, 255, 218, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 255, 218, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(100, 255, 218, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 255, 218, 0.15) 1px, transparent 1px);
+    background-size:
+        20px 20px,
+        /* Minor grid */
+        20px 20px,
+        100px 100px,
+        /* Major grid */
+        100px 100px;
+    background-position: center center;
+    pointer-events: none;
+    /* Let clicks pass through if needed */
+    z-index: 1;
 }
 
 .ecg-line {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: transparent;
-    /* Always cyan glow */
-    box-shadow: 0 0 10px #64ffda;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .ecg-line::after {
     content: '';
     position: absolute;
-    top: -50px;
+    top: 50%;
     left: 0;
+    transform: translateY(-50%);
     width: 100%;
-    height: 100px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 100' preserveAspectRatio='none'%3E%3Cpolyline points='0,50 50,50 60,30 70,70 80,50 150,50 160,20 170,80 180,50 250,50 260,10 270,90 280,50 350,50 360,30 370,70 380,50 450,50 460,20 470,80 480,50 500,50' fill='none' stroke='%2364ffda' stroke-width='2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") repeat-x;
-    background-size: 500px 100px;
-    animation: ecgMove 3s linear infinite;
-    /* No filter needed as we want original cyan */
+    /* Fill the container */
+    height: 150px;
+
+    /* 
+       High-Fidelity Varied ECG Loop
+       Width: 2500px (Seamless Loop)
+       Contains ~10 beats with randomized RR intervals and Amplitudes.
+    */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2500 150' preserveAspectRatio='none'%3E%3Cpath d='M0,75 L20,75 Q35,60 50,75 L60,75 L65,80 L75,-12.98 L85,95 L90,75 L110,75 Q140,50 170,75 L247.97,75 L267.97,75 Q282.97,60 297.97,75 L307.97,75 L312.97,80 L322.97,-12.39 L332.97,95 L337.97,75 L357.97,75 Q387.97,50 417.97,75 L498.42,75 L518.42,75 Q533.42,60 548.42,75 L558.42,75 L563.42,80 L573.42,-22.36 L583.42,95 L588.42,75 L608.42,75 Q638.42,50 668.42,75 L747.78,75 L767.78,75 Q782.78,60 797.78,75 L807.78,75 L812.78,80 L822.78,-7.49 L832.78,95 L837.78,75 L857.78,75 Q887.78,50 917.78,75 L1012.63,75 L1032.63,75 Q1047.63,60 1062.63,75 L1072.63,75 L1077.63,80 L1087.63,-9.95 L1097.63,95 L1102.63,75 L1122.63,75 Q1152.63,50 1182.63,75 L1259.08,75 L1279.08,75 Q1294.08,60 1309.08,75 L1319.08,75 L1324.08,80 L1334.08,-15.80 L1344.08,95 L1349.08,75 L1369.08,75 Q1399.08,50 1429.08,75 L1518.96,75 L1538.96,75 Q1553.96,60 1568.96,75 L1578.96,75 L1583.96,80 L1593.96,-16.48 L1603.96,95 L1608.96,75 L1628.96,75 Q1658.96,50 1688.96,75 L1750.62,75 L1770.62,75 Q1785.62,60 1800.62,75 L1810.62,75 L1815.62,80 L1825.62,-19.72 L1835.62,95 L1840.62,75 L1860.62,75 Q1890.62,50 1920.62,75 L1995.83,75 L2015.83,75 Q2030.83,60 2045.83,75 L2055.83,75 L2060.83,80 L2070.83,-6.99 L2080.83,95 L2085.83,75 L2105.83,75 Q2135.83,50 2165.83,75 L2240.23,75 L2260.23,75 Q2275.23,60 2290.23,75 L2300.23,75 L2305.23,80 L2315.23,-21.84 L2325.23,95 L2330.23,75 L2350.23,75 Q2380.23,50 2410.23,75 L2500,75' fill='none' stroke='%2364ffda' stroke-width='2' vector-effect='non-scaling-stroke' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+    background-repeat: repeat-x;
+    background-size: 2500px 150px;
+    animation: ecgScroll 12s linear infinite;
+
+    filter: drop-shadow(0 0 4px rgba(100, 255, 218, 0.8));
 }
 
-@keyframes ecgMove {
+@keyframes ecgScroll {
     0% {
-        background-position: 0 0;
+        background-position-x: 0;
     }
 
     100% {
-        background-position: -500px 0;
+        background-position-x: -2500px;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .ecg-visual {
+        height: 220px;
+    }
+
+    .ecg-grid {
+        background-size:
+            15px 15px,
+            15px 15px,
+            75px 75px,
+            75px 75px;
     }
 }
 
@@ -708,25 +797,83 @@ ul {
     color: var(--primary);
 }
 
-.contact-form .form-group {
-    margin-bottom: 20px;
-}
-
-.contact-form input,
-.contact-form textarea {
+/* Contact Form (Google Sheets Integration) */
+.contact-right form {
     width: 100%;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 4px;
-    color: var(--text-heading);
-    font-family: var(--font-body);
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
+.contact-right input,
+.contact-right textarea {
+    width: 100%;
+    border: 1px solid var(--glass-border);
     outline: none;
+    background: rgba(255, 255, 255, 0.05);
+    /* Glass effect */
+    padding: 15px;
+    margin: 15px 0;
+    color: var(--text-heading);
+    font-size: 18px;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    transition: var(--transition);
+}
+
+[data-theme="light"] .contact-right input,
+[data-theme="light"] .contact-right textarea {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.contact-right input:focus,
+.contact-right textarea:focus {
     border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-right .btn2 {
+    display: inline-block;
+    padding: 14px 60px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: var(--transition);
+    background: var(--primary);
+    color: var(--btn-hover-text);
+    /* Ensure readable text */
+    border: 1px solid var(--primary);
+}
+
+.contact-right .btn2.loading {
+    background: var(--text-muted);
+    border-color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.contact-right .btn2.success {
+    background: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.contact-right .btn2.error {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+#msg {
+    color: #61b752;
+    margin-top: -10px;
+    display: block;
+    font-weight: 500;
+}
+
+.contact-right .btn2:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer */
@@ -834,9 +981,11 @@ ul {
 }
 
 /* Mobile Devices */
+/* Mobile Devices */
 @media (max-width: 768px) {
     .nav-toggle {
         display: block;
+        margin-left: 15px;
     }
 
     .nav-menu {
@@ -844,16 +993,23 @@ ul {
         top: 0;
         right: -100%;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         background: var(--nav-bg);
         width: 100%;
         height: 100vh;
         text-align: center;
-        padding: 40px 0;
-        transition: 0.3s ease-in-out;
+        padding-top: 100px;
+        /* Space for close interaction */
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: -10px 0 30px -10px rgba(2, 12, 27, 0.7);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
         z-index: 1000;
+        overflow-y: auto;
+    }
+
+    [data-theme="light"] .nav-menu {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu.active {
@@ -862,39 +1018,59 @@ ul {
 
     .nav-link {
         font-size: 1.5rem;
-        margin: 15px 0;
+        margin: 20px 0;
         display: inline-block;
-        padding-bottom: 5px;
+        width: 100%;
     }
 
-    /* Adjust underline for mobile to be centered appropriately if needed, or keep standard */
-    .nav-link::after {
-        left: 50%;
-        transform: translateX(-50%);
+    .nav-link.btn-primary {
+        display: inline-block;
+        width: auto;
+        margin-top: 10px;
     }
 
-    .nav-link:hover::after {
-        width: 50%;
-        /* Smaller underline on mobile for aesthetics */
+    /* Adjust theme toggle for mobile menu */
+    .theme-toggle {
+        margin: 20px auto;
+        font-size: 1.5rem;
+        border: 2px solid var(--glass-border);
+        padding: 10px;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .hero {
-        padding-top: 100px;
+        padding-top: 120px;
+        padding-bottom: 60px;
+        text-align: center;
     }
 
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .diff-item {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 20px;
+        background: var(--bg-card);
+        border-radius: 8px;
+        border: 1px solid var(--glass-border);
     }
 
     .btn-outline {
         margin-left: 0;
-        margin-top: 10px;
+        margin-top: 15px;
+    }
+
+    .contact-wrapper {
+        padding: 20px;
     }
 }
 
@@ -908,18 +1084,32 @@ ul {
         height: 35px;
     }
 
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
     .hero-btns {
         flex-direction: column;
         width: 100%;
+        gap: 15px;
     }
 
     .btn {
         width: 100%;
-        text-align: center;
-        margin: 5px 0;
+        display: block;
+        margin: 0;
+    }
+
+    .btn-outline {
+        margin-top: 0;
+        /* Reset since it's stacked now */
     }
 
     .section-title {
         font-size: 1.8rem;
+    }
+
+    .info-item {
+        font-size: 0.9rem;
     }
 }
