@@ -101,7 +101,7 @@ const form = document.forms["submit-to-google-sheet"];
 const msg = document.getElementById("msg");
 const submitButton = form?.querySelector("button[type='submit']");
 
-if (form && submitButton) {
+if (form && submitButton && msg) {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         submitButton.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending...';

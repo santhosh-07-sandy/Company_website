@@ -650,9 +650,21 @@ ul {
     margin: 0 -15px;
 }
 
-.col-lg-6 {
-    width: 50%;
+[class*="col-"] {
     padding: 0 15px;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        width: 50%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-6 {
+        width: 50%;
+    }
 }
 
 .differentiation-list {
@@ -744,37 +756,169 @@ ul {
     color: var(--text-main);
 }
 
-/* Clients & Careers */
-.clients-tags {
+/* Leadership & Partners */
+.profile-card {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: clamp(25px, 5vw, 40px);
+    height: 100%;
 }
 
-.tag {
-    padding: 8px 16px;
-    background: var(--bg-card);
-    border: 1px solid var(--primary);
+.profile-img-container {
+    width: 180px;
+    height: 180px;
+    /* Square/Circle */
     border-radius: 20px;
-    color: var(--primary);
-    font-size: 0.9rem;
+    /* Soft rounded square as requested/implied */
+    overflow: hidden;
+    margin-bottom: 25px;
+    border: 2px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
 
-.careers-list {
-    margin-top: 20px;
+.profile-card:hover .profile-img-container {
+    border-color: var(--primary);
+    transform: scale(1.05);
 }
 
-.careers-list li {
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-content h3 {
+    color: var(--text-heading);
     margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.profile-desc {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    max-width: 90%;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid var(--primary);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    background: var(--primary-dim);
+    transform: translateY(-2px);
+}
+
+/* Partners Carousel */
+.partners-section {
+    margin-top: 80px;
+    position: relative;
+    padding: 60px 0;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 40px 0;
+    /* Fade masks at edges */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.carousel-track {
+    display: flex;
+    gap: 40px;
+    width: max-content;
+    animation: scrollPartners 30s linear infinite;
+    padding: 20px 0;
+    /* Space for hover lift */
+}
+
+@media (max-width: 768px) {
+    .carousel-track {
+        gap: 20px;
+        animation-duration: 20s;
+    }
+}
+
+.carousel-track:hover {
+    animation-play-state: paused;
+}
+
+.partner-logo {
+    width: 180px;
+    height: 100px;
     display: flex;
     align-items: center;
-    gap: 15px;
-    color: var(--text-main);
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
 }
 
-.careers-list li i {
-    color: var(--primary);
+.partner-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.6) contrast(0.8);
+    transition: all 0.4s ease;
+}
+
+/* Hover Effects */
+.partner-logo:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(100, 255, 218, 0.3);
+    box-shadow: 0 10px 20px -5px rgba(2, 12, 27, 0.5),
+        0 0 15px rgba(100, 255, 218, 0.1);
+}
+
+.partner-logo:hover img {
+    filter: grayscale(0%) opacity(1) contrast(1);
+    transform: scale(1.1);
+}
+
+/* Light Mode Optimization */
+[data-theme="light"] .partner-logo {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .partner-logo:hover {
+    border-color: var(--primary);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1),
+        0 0 15px rgba(2, 132, 199, 0.15);
+}
+
+@keyframes scrollPartners {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* Contact Section */
